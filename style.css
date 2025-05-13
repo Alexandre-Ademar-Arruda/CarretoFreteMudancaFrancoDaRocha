@@ -8,7 +8,7 @@ body {
   font-family: Arial, sans-serif;
   background: #f8f8f8;
   color: #333;
-  max-width: 300px;
+  max-width: 320px;
   margin: 0 auto;
   padding: 10px;
 }
@@ -16,17 +16,16 @@ body {
 header {
   background-color: #4CAF50;
   color: white;
-  padding: 5px;
+  padding: 10px;
   text-align: center;
-  font-size: 14px;
-    border-radius: 5px;
-    border: none;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
 button {
   width: 100%;
-  margin: 5px 0;
-  padding: 5px;
+  margin: 10px 0;
+  padding: 10px;
   background: #4CAF50;
   border: none;
   border-radius: 5px;
@@ -41,7 +40,7 @@ button:hover {
 
 .comodoToggle {
   background-color: #eee;
-  padding: 5px;
+  padding: 10px;
   font-weight: bold;
   margin-top: 5px;
   cursor: pointer;
@@ -67,7 +66,7 @@ form label {
 
 input[type="text"], input[type="date"] {
   width: 100%;
-  padding: 5px;
+  padding: 8px;
   margin-top: 4px;
   border: 1px solid #ccc;
   border-radius: 4px;
