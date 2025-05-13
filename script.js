@@ -1,3 +1,11 @@
+// Remover checkboxes salvos ao carregar a página e garantir que estejam desmarcados
+window.addEventListener('DOMContentLoaded', () => {
+  localStorage.removeItem('checkboxes'); // Impede que checkboxes marcados anteriormente sejam restaurados
+
+  // Desmarca todos os checkboxes ao carregar a página
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+});
+
 // Mostrar os cômodos e campos finais
 document.getElementById('btnOrcamento').addEventListener('click', () => {
   document.getElementById('comodosContainer').classList.remove('hidden');
@@ -14,35 +22,21 @@ document.querySelectorAll('.comodoToggle').forEach(toggle => {
   });
 });
 
-// Restaurar dados do localStorage ao carregar a página
-window.addEventListener('DOMContentLoaded', () => {
-  ['nome', 'carregar', 'descarregar', 'data'].forEach(id => {
-    document.getElementById(id).value = localStorage.getItem(id) || '';
-  });
-
-  const storedCheckboxes = JSON.parse(localStorage.getItem('checkboxes')) || [];
-  storedCheckboxes.forEach(id => {
-    const checkbox = document.getElementById(id);
-    if (checkbox) checkbox.checked = true;
-  });
-});
-
-// Armazenar dados dos inputs em tempo real
-['nome', 'carregar', 'descarregar', 'data'].forEach(id => {
-  document.getElementById(id).addEventListener('input', (e) => {
-    localStorage.setItem(id, e.target.value);
-  });
-});
-
-// Armazenar checkboxes
-document.querySelectorAll('input[type="checkbox"]').forEach((cb, index) => {
-  // Adiciona id único se não tiver
-  if (!cb.id) cb.id = `cb${index}`;
-  cb.addEventListener('change', () => {
-    const checked = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(c => c.id);
-    localStorage.setItem('checkboxes', JSON.stringify(checked));
-  });
-});
+// Mapeamento de emojis para móveis
+const itemEmojis = {
+  geladeira: "🧊",
+  fogao: "🍳",
+  maquina: "🧼",
+  microondas: "🍔",
+  lavaLoucas: "🍽️",
+  forno: "🔥",
+  colchao: "🛏️",
+  box: "🛏️",
+  guardaRoupa: "👚",
+  sofa: "🛋️",
+  rack: "📺",
+  estante: "🖼️"
+};
 
 // Enviar orçamento no WhatsApp
 document.getElementById('btnEnviarZap').addEventListener('click', () => {
@@ -52,7 +46,10 @@ document.getElementById('btnEnviarZap').addEventListener('click', () => {
   const data = document.getElementById('data').value;
 
   const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-  const itens = Array.from(checkboxes).map(cb => `✅ ${cb.value}`);
+  const itens = Array.from(checkboxes).map(cb => {
+    const emoji = itemEmojis[cb.id] || "📦"; // Adiciona emoji correto ou 📦 se não houver um definido
+    return `✅ ${emoji} ${cb.value}`;
+  });
 
   // Validação
   if (!nome || !carregar || !descarregar || !data || itens.length === 0) {
