@@ -69,4 +69,10 @@ ${itens.join('\n')}`;
 
   const zap = `https://wa.me/5511995424085?text=${encodeURIComponent(mensagem)}`;
   window.open(zap, '_blank');
+
+    // Aguarda 1 segundo e redireciona
+  setTimeout(() => {
+    window.location.href = "/obrigado.html";
+  }, 1000);
+
 });
